@@ -1,8 +1,9 @@
 
 describe('WiseWay ToDo List E2E', () => {
 
-  const todo1 = "Buy groceries"
-  const todo2 = "Pick up laundry"
+  const todo1 = "Buy groceries";
+  const todo2 = "Pick up laundry";
+  const timedTask = "Submit assignment";
 
   beforeEach(() => {
     cy.visit('http://localhost:3000/')
@@ -36,7 +37,37 @@ describe('WiseWay ToDo List E2E', () => {
 
 
 
-      // --ADD TESTS HERE---
+    // ✅ Delete the second todo
+    cy.contains(todo2)
+      .parent()
+      .parent()
+      .find('button')
+      .click();
+    
+    // Confirm deletion
+    cy.contains(todo2).should('not.exist');
+  });
+
+  it('Add a timed task with a deadline', () => {
+    // Change type to "Timed"
+    cy.get('select').first().select('timed');
+
+    // Enter task text
+    cy.get('#task-input').clear().type(timedTask);
+
+    // Set a deadline (e.g., today + 1)
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const isoDate = tomorrow.toISOString().split("T")[0];
+
+    cy.get('input[type="date"]').type(isoDate);
+
+    // Submit task
+    cy.get('button[type="submit"]').click();
+
+    // Verify task was added
+    cy.contains(timedTask).should('exist');
+    cy.contains(isoDate).should('exist');
   });
 
   //Clears DB after test
