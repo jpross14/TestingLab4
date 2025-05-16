@@ -59,15 +59,22 @@ describe('WiseWay ToDo List E2E', () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const isoDate = tomorrow.toISOString().split("T")[0];
+    const formattedDate = tomorrow.toLocaleDateString("en-US", {
+      year: "2-digit",
+      month: "2-digit",
+      day: "2-digit",
+    });
 
     cy.get('input[type="date"]').type(isoDate);
+
+    cy.log(isoDate)
 
     // Submit task
     cy.get('button[type="submit"]').click();
 
     // Verify task was added
     cy.contains(timedTask).should('exist');
-    cy.contains(isoDate).should('exist');
+    cy.contains(formattedDate).should('exist');
   });
 
   //Clears DB after test
