@@ -18,12 +18,26 @@ run the development server:
 ```bash
 npm run dev
 ```
-## For e2e test
-```bash
-npx cypress run
-```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+
+## For e2e test
+
+1. Make sure server is running
+```bash
+npm run dev
+```
+
+2. Run cypress
+```bash
+npx cypress run 
+```
+or open cypress if tests keep failing due to response time
+```bash
+npx cypress open 
+```
 
 ## Linting
 
