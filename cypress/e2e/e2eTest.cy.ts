@@ -67,8 +67,6 @@ describe('WiseWay ToDo List E2E', () => {
 
     cy.get('input[type="date"]').type(isoDate);
 
-    cy.log(isoDate)
-
     // Submit task
     cy.get('button[type="submit"]').click();
 
