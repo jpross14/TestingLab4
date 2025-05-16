@@ -55,4 +55,15 @@ export const addTodo = async (task: string, deadline: string | null) => {
 };
 
 
+export const clearAllTodos = async (): Promise<void> => {
+  const { error } = await supabase
+    .from('todos')
+    .delete()
+    .not('id', 'is', null);
+
+  if (error) {
+    console.error("Clear all error:", error.message);
+    throw new Error("Could not clear todos");
+  }
+};
 
